@@ -25,8 +25,9 @@ export class SigninComponent {
       (user: any) => {
         // Handle successful login
         console.log('Logged-in User Details:', user);
-        this.service.setLoggedInUser(user);
-  
+        this.service.setLoggedInUser(user.token);
+        localStorage.setItem('token', user.token);
+        console.log("fdfdffdd",user.roles)
         // Redirect to preferences page
        this.router.navigateByUrl('/admin');
       },

@@ -4,10 +4,14 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { FrontLayoutComponent } from './layouts/front-layout/front-layout.component';
 import { SigninComponent } from './authentication/component/signin/signin.component';
 import { SignupComponent } from './authentication/component/signup/signup.component';
+import { ProfileComponent } from './authentication/component/profile/profile.component';
+import { UpdateComponent } from './authentication/component/update/update.component';
 
 const routes: Routes = [  
   { path: 'signin', component: SigninComponent },
   { path: 'signup', component: SignupComponent },
+  { path: 'profile', component: ProfileComponent },
+  { path: 'update', component: UpdateComponent },
 
   {
 

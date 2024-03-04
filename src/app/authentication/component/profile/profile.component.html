@@ -1,0 +1,29 @@
+<div class="profile-container">
+    <h1>User Profile</h1>
+    <div class="profile-info">
+      <div class="profile-field">
+        <label>First Name:</label>
+        <span>{{ user.firstName  }}</span>
+      </div>
+      <div class="profile-field">
+        <label>Laste Name:</label>
+        <span>{{ user.lastName }}</span>
+      </div>
+      <div class="profile-field">
+        <label>Email:</label>
+        <span>{{ user.email }}</span>
+      </div>
+      <div class="profile-field">
+        <label>Role:</label>
+        <span>{{ user.role }}</span>
+      </div>
+      <!-- Add more fields as needed -->
+    </div>
+    <div>
+    <button class="update-btn" (click)="navigateToUpdate()">updateProfile</button>
+    </div>
+    <ul><button class="logout-btn" (click)="logout()">Logout</button> </ul>
+    <ul><button class="back-btn" (click)="goBack()">go back</button> </ul>
+
+  </div>
+  

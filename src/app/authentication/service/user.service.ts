@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable, catchError, tap, throwError } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -38,12 +38,14 @@ export class UserService {
   } */
 
   loginUser(loginData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/auth`, loginData)
-      .pipe(
-        tap(user => this.loggedInUserSubject.next(user))
-      );
+    return this.http.post(`${this.apiUrl}/auth`, loginData).pipe(
+      tap(user => {
+        this.loggedInUserSubject.next(user);
+        console.log("csds", user);
+      })
+    );
   }
-
+  
   setLoggedInUser(user: any): void {
     this.loggedInUserSubject.next(user);
   }
@@ -60,6 +62,32 @@ export class UserService {
   getLoggedInUserId(): number {
     const loggedInUser = this.loggedInUserSubject.value;
     return loggedInUser ? loggedInUser.id : null;
+  }
+ 
+  /////////////////////////////
+
+  getAllUsers(): Observable<any> {
+    const token = localStorage.getItem('token');
+  
+    // Check if token exists
+    if (!token) {
+     
+      console.error('Token not found in local storage');
+      return throwError('Token not found');
+    }
+  
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+      // Make HTTP request with headers
+  return this.http.get<any>(`${this.apiUrl}/user/all`, { headers }).pipe(
+    catchError(this.handleError)
+  );
+  }
+  private handleError(error: any) {
+    console.error('An error occurred:', error); // Log error in the console
+    return throwError(error); // Throw an error to the caller
   }
 
 }

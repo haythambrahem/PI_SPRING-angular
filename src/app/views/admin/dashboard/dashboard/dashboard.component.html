@@ -8,7 +8,7 @@
                         Level
                     </a>
                     <div class="dropdown-menu pc-h-dropdown">
-                        <a href="#!" class="dropdown-item">
+                        <a routerLink="/profile" class="dropdown-item">
                             <i class="material-icons-two-tone">account_circle</i>
                             <span>My Account</span>
                         </a>
@@ -68,7 +68,7 @@
                         <i class="material-icons-two-tone">search</i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right pc-h-dropdown drp-search">
-                        <form class="px-3">
+                        <form (ngSubmit)="search()" #searcheForm="ngForm" class="px-3">
                             <div class="form-group mb-0 d-flex align-items-center">
                                 <i data-feather="search"></i>
                                 <input type="search" class="form-control border-0 shadow-none" placeholder="Search here. . .">
@@ -77,13 +77,16 @@
                     </div>
                 </li>
                 <li class="dropdown pc-h-item">
-                    <a class="pc-head-link dropdown-toggle arrow-none mr-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                    <!-- <a class="pc-head-link dropdown-toggle arrow-none mr-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                         <img src="images/avatar-2.jpg" alt="user-image" class="user-avtar">
                         <span>
                             <span class="user-name">Joseph William</span>
                             <span class="user-desc">Administrator</span>
                         </span>
-                    </a>
+                    </a> -->
+                    <li><a class="btn transparent" id="sign-in-btn" routerLink="/profile"  >
+                        profile
+                      </a>
                     <div class="dropdown-menu dropdown-menu-right pc-h-dropdown">
                         <div class=" dropdown-header">
                             <h5 class="text-overflow m-0"><span class="badge bg-light-primary"><a href="https://therichpost.com" target="_blank">Upgrade to Pro</a></span></h5>
@@ -104,7 +107,47 @@
 
 <!-- [ Main Content ] start -->
 <div class="pc-container">
-<div class="pcoded-content">
+<div class="pcoded-content"><br><br>
+    <div class="row">
+        <!-- User List Section -->
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>User List</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Email</th>
+                                    <th>Connected</th>
+                                    <th>Telephone</th>
+                                    <th>Role</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- User data will be dynamically inserted here -->
+                                <tr *ngFor="let user of users">
+                                    <td>{{user.firstName}}</td>
+                                    <td>{{user.lastName}}</td>
+                                    <td>{{user.email}}</td>
+                                    <td>{{user.Connected}}</td>
+                                    <td>{{user.Telephone}}</td>
+                                    <td>{{user.roles.roleName}}</td>
+
+                                </tr>
+                                <!-- Add more rows for additional users -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End User List Section -->
+    </div>
     <!-- [ breadcrumb ] start -->
     <div class="page-header">
         <div class="page-block">

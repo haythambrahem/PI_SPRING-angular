@@ -5,17 +5,16 @@ import { AppComponent } from './app.component';
 import { LayoutsModule } from './layouts/layouts.module';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { AuthModule } from './views/admin/auth/auth.module';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { SigninComponent } from './authentication/component/signin/signin.component';
 import { SignupComponent } from './authentication/component/signup/signup.component';
+import { AuthModule } from './views/admin/auth/auth.module';
+import { AuthenticationModule } from './authentication/authentication.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SigninComponent,
-    SignupComponent
     
   ],
   imports: [
@@ -26,7 +25,8 @@ import { SignupComponent } from './authentication/component/signup/signup.compon
     HttpClientModule,
     RouterModule,
     AuthModule,
-    CommonModule
+    CommonModule,
+    AuthenticationModule
     
   ],
   providers: [],

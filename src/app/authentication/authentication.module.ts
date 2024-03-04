@@ -4,10 +4,18 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
+import { SigninComponent } from './component/signin/signin.component';
+import { SignupComponent } from './component/signup/signup.component';
+import { ProfileComponent } from './component/profile/profile.component';
+import { UpdateComponent } from './component/update/update.component';
 
 
 @NgModule({
   declarations: [
+    SigninComponent,
+    SignupComponent,
+    ProfileComponent,
+    UpdateComponent
     
   ],
   imports: [
