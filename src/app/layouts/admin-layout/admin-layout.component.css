@@ -1,0 +1,9 @@
+.biggerContainer {
+  display: flex;
+}
+
+.containerBig {
+  width: 100%;
+  height: 100%;
+  
+}

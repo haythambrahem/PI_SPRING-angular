@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../../service/user.service';
+import {RedirectorService} from '../../service/redirector.service';
 
 @Component({
   selector: 'app-signin',
@@ -13,10 +13,10 @@ export class SigninComponent {
   email: string = '';
   password: string = '';
 
-  constructor(private http: HttpClient, private service: UserService, private router: Router) {}
+  constructor(private service: UserService, private router: Router, private redirect: RedirectorService) {}
 
   signin() {
-    let bodyData = {
+    const bodyData = {
       email: this.email,
       password: this.password,
     };
@@ -24,20 +24,12 @@ export class SigninComponent {
     this.service.loginUser(bodyData).subscribe(
       (user: any) => {
         // Handle successful login
-        console.log('Logged-in User Details:', user);
-        this.service.setLoggedInUser(user.token);
-        localStorage.setItem('token', user.token);
-        console.log("fdfdffdd",user.roles)
-        // Redirect to preferences page
-       this.router.navigateByUrl('/admin');
+        this.redirect.redirectUser(user)
       },
       (error) => {
         // Handle errors here
-        if (error.status === 404) {
-          alert("Email does not exist");
-        } else {
-          alert("Incorrect Email and Password not match");
-        }
+        console.log("error happened while logging in")
+        console.log(error)
       }
     );
   }

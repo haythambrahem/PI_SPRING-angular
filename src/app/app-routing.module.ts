@@ -18,7 +18,7 @@ const routes: Routes = [
     path:'admin',component: AdminLayoutComponent, children:[
       {path:'' ,loadChildren:()=>import('./views/admin/dashboard/dashboard.module').then(m=>m.DashboardModule)},
       {path:'dashboard',loadChildren:()=>import('./views/admin/dashboard/dashboard.module').then(m=>m.DashboardModule)},
-      {path:'auth',loadChildren:()=>import('./views/admin/auth/auth.module').then(m=>m.AuthModule)},
+      { path: 'auth', loadChildren: () => import('./views/admin/auth/auth.module').then(m => m.AuthModule) },
       {path:'CRM',loadChildren:()=>import('./views/admin/crm/crm.module').then(m=>m.CRMModule)}
     ]
   },
@@ -33,4 +33,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {  }

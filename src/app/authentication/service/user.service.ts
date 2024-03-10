@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, catchError, tap, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AddUserRequest } from 'src/app/views/admin/auth/auth/add-employee/add-employee/add-employee.component';
 
 @Injectable({
   providedIn: 'root'
@@ -13,35 +14,14 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  /* getCurrent(): Observable<User> {
-    return this.http.get<User>(`${this.apiUrl +"user/getCurrent" }`);
-  }
 
-  getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.apiUrl +"user/all" }`);
-  }
-
-  editCurrent(id : String, value: any): Observable<Object>{
-    return this.http.put<Object>(`${this.apiUrl +"user/editCurrent"}/${id}`,value);
-  }
-
-  editPassword(email : String, value: any): Observable<Object>{
-    return this.http.put<Object>(`${this.apiUrl +"user/editPassword"}/${email}`,value);
-  }
-
-  signup(User?: User): Observable<Object>{
-    return this.http.post<Object>(`${this.apiUrl +"auth/signup" }`,User)
-  }
-
-  signin(User?: User): Observable<Object>{
-    return this.http.post<Object>(`${this.apiUrl +"auth/signin" }`,User)
-  } */
-
-  loginUser(loginData: any): Observable<any> {
+  loginUser(loginData: {email: string, password: string}): Observable<any> {
     return this.http.post(`${this.apiUrl}/auth`, loginData).pipe(
       tap(user => {
-        this.loggedInUserSubject.next(user);
-        console.log("csds", user);
+        localStorage.setItem("user", JSON.stringify(user))
+
+        this.setLoggedInUser(user);
+        
       })
     );
   }
@@ -63,31 +43,51 @@ export class UserService {
     const loggedInUser = this.loggedInUserSubject.value;
     return loggedInUser ? loggedInUser.id : null;
   }
- 
-  /////////////////////////////
 
-  getAllUsers(): Observable<any> {
-    const token = localStorage.getItem('token');
-  
-    // Check if token exists
-    if (!token) {
-     
-      console.error('Token not found in local storage');
-      return throwError('Token not found');
+
+  private getUserToken(): string {
+    /* this.loggedInUserSubject.asObservable().subscribe(u => {
+      token = u.token
+    }); */
+    const user = localStorage.getItem("user")
+    if (user) {
+      return JSON.parse(user).token
     }
-  
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
 
-      // Make HTTP request with headers
-  return this.http.get<any>(`${this.apiUrl}/user/all`, { headers }).pipe(
-    catchError(this.handleError)
-  );
+    throw Error("no token")
+    
   }
-  private handleError(error: any) {
-    console.error('An error occurred:', error); // Log error in the console
-    return throwError(error); // Throw an error to the caller
+
+
+  searchAllUsers(request: { page: number, size: number, criteria: string, direction: string, searchTerm: string }): Observable<any> {
+    
+    const token = this.getUserToken()
+
+    return this.http.get(`${this.apiUrl}/users/`, {
+      params: {
+        ...request
+      },
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + token,
+        
+      }
+    })
+  
   }
+
+
+  addEmployee(request: AddUserRequest): Observable<any> {
+
+    const token = this.getUserToken();
+
+    return this.http.post(`${this.apiUrl}/users/`, request, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + token,
+      }
+    })
+  }
+ 
 
 }
