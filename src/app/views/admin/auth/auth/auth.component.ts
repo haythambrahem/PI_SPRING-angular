@@ -73,7 +73,10 @@ export class AuthComponent implements OnInit {
     this.request.searchTerm= ""
     this.searchAllUsers()
   }
-
+  navigateToAddUser() {
+    
+    this.router.navigate(['/admin/auth/add']);
+  }
 
 
 }
