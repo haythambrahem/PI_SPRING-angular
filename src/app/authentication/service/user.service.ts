@@ -77,11 +77,12 @@ export class UserService {
   }
 
 
+
   addEmployee(request: AddUserRequest): Observable<any> {
 
     const token = this.getUserToken();
 
-    return this.http.post(`${this.apiUrl}/users/`, request, {
+    return this.http.post(`${this.apiUrl}/user/create`, request, {
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer " + token,
@@ -89,5 +90,22 @@ export class UserService {
     })
   }
  
+  searchByKeyword(request : {Keyword: string}) : Observable<any> {
+    const token = this.getUserToken();
+    return this.http.post(`${this.apiUrl}/user/search`, request, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + token,
+      }
+    })
+  }
 
+  updatePwd(userData: { currentPassword: string, newPassword: string }): Observable<any> {
+    return this.http.post(`${this.apiUrl}/user/editPassword`, userData)
+      .pipe(
+        catchError((error: any) => {
+          return throwError('Error updating password');
+        })
+      );
+  }
 }

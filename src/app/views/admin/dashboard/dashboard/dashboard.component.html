@@ -109,44 +109,31 @@
 <div class="pc-container">
 <div class="pcoded-content"><br><br>
     <div class="row">
-        <!-- User List Section -->
+        <!-- User stat Section -->
         <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <h5>User List</h5>
+            <div class="statistics-cards d-flex justify-content-between">
+                <div class="card verified-users">
+                    <h3>Les Utilisateurs Vérifiés</h3>
+                    <ul id="top-verified-users">
+                        <!-- Les éléments de la liste seront générés par TypeScript -->
+                    </ul>
                 </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
-                                    <th>Email</th>
-                                    <th>Connected</th>
-                                    <th>Telephone</th>
-                                    <th>Role</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- User data will be dynamically inserted here -->
-                                <tr *ngFor="let user of users">
-                                    <td>{{user.firstName}}</td>
-                                    <td>{{user.lastName}}</td>
-                                    <td>{{user.email}}</td>
-                                    <td>{{user.Connected}}</td>
-                                    <td>{{user.Telephone}}</td>
-                                    <td>{{user.roles.roleName}}</td>
-
-                                </tr>
-                                <!-- Add more rows for additional users -->
-                            </tbody>
-                        </table>
-                    </div>
+                <div class="card recent-users">
+                    <h3>10 Derniers Utilisateurs</h3>
+                    <ul id="recent-users">
+                        <!-- Les éléments de la liste seront générés par TypeScript -->
+                    </ul>
                 </div>
+                <div class="card additional-stats">
+                    <h3>Statistiques Supplémentaires</h3>
+                    <ul id="recent-users">
+                        <!-- Les éléments de la liste seront générés par TypeScript -->
+                    </ul>                </div>
             </div>
         </div>
-        <!-- End User List Section -->
+        
+        
+        <!-- End User stat Section -->
     </div>
     <!-- [ breadcrumb ] start -->
     <div class="page-header">

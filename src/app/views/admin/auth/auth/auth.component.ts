@@ -32,7 +32,7 @@ export class AuthComponent implements OnInit {
     direction: "asc",
     searchTerm: "",
   }
-  
+  Keyword: string = ''; 
 
 
   constructor (private service: UserService, private router: Router) {}
@@ -77,6 +77,18 @@ export class AuthComponent implements OnInit {
     
     this.router.navigate(['/admin/auth/add']);
   }
-
+  
+  searchByKeyword(keyword: string) {
+    const request = { Keyword: keyword }; // Create the request object
+    this.service.searchByKeyword(request).subscribe({
+      next: (payload: { content: User[], totalPage: number, totalElements: number, pageNumber: number }) => {
+        console.log(payload);
+        this.users = payload.content;
+      },
+      error: error => {
+        console.log(error);
+      }
+    });
+  }
 
 }
