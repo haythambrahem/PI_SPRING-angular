@@ -108,4 +108,38 @@ export class UserService {
         })
       );
   }
+
+  getEmployeeRatio(): Observable<any> {
+    const token = this.getUserToken()
+    return this.http.get(`${this.apiUrl}/user/task-status`, {
+      headers: {
+        "Content-Type": 'application/json',
+        "Authorization" : `Bearer ${token}`,
+      }
+    })
+  } 
+
+  // user/user-task-status
+  getGeneraleEmployesData(): Observable<any> {
+    const token = this.getUserToken()
+    return this.http.get(`${this.apiUrl}/user/user-task-status`, {
+      headers: {
+        "Content-Type": 'application/json',
+        "Authorization" : `Bearer ${token}`,
+      }
+    })
+  } 
+  
+  ///
+  getSpeceficEmployesData(): Observable<any> {
+    const token = this.getUserToken()
+    return this.http.get(`${this.apiUrl}/user/tasks-by-status`, {
+      headers: {
+        "Content-Type": 'application/json',
+        "Authorization" : `Bearer ${token}`,
+      }
+    })
+  }
+
+
 }

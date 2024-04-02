@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, catchError, tap, throwError } from 'rxjs';
+import { ClientRoutingModule } from 'src/app/views/front/client/client-routing.module';
 
 @Injectable({
   providedIn: 'root'
@@ -15,16 +16,21 @@ export class ProfileService {
 
   // Récupérer les données de profil de l'utilisateur
   getUserProfile(): Observable<any> {
-    const token = localStorage.getItem('token');
+    console.log("getting user profile")
+    const user = localStorage.getItem('user');
+    const userObj = user ? JSON.parse(user) : null
+    console.log(userObj?.token)
+    const token = userObj?.token || null
   
     // Check if token exists
     if (!token) {
      
       console.error('Token not found in local storage');
-      return throwError('Token not found');
+      throw new Error('Token not found');
     }
   
     const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
     

@@ -10,6 +10,7 @@ interface User {
     lastName: string;
     email: string;
     phoneNumber: number | null;
+    role:string[];
 }
 
 @Component({
@@ -21,7 +22,7 @@ export class AuthComponent implements OnInit {
 
 
 
-  users: User[] = [{ id: null, firstName: "loading...", lastName: "loading...", email: "loading...", phoneNumber: null }]
+  users: User[] = [{ id: null, firstName: "loading...", lastName: "loading...", email: "loading...", phoneNumber: null, role:[] }]
   
 
 

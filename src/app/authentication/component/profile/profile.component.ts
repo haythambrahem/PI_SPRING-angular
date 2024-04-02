@@ -17,28 +17,18 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.service.getUserProfile().subscribe (data => {
       this.user = data
-      console.log("dqtqqq",data)
+      console.log("thes is the response",data)
     } ); 
   }
 
-  getUserProfile() {
-    this.service.getUserProfile().subscribe(data => {
-        this.user = data;
-        console.log("csfdgfdfdds", data);
-
-      },
-      (error: any) => {
-        console.error('Error fetching user profile:', error);
-      }
-    );
-  }
+  
  
   
 
   logout() {
     // Add logout functionality here
     // For example, clearing local storage and redirecting to login page
-    localStorage.removeItem("token");
+    localStorage.removeItem("user");
 
     // localStorage.removeItem("isLoggedIn");
     // localStorage.removeItem("userName");
